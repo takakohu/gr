@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"\nimport json, sys\ndata = json.load(sys.stdin)\ncontent = data.get('content', [])\nhas_image = False\nif isinstance(content, list):\n    has_image = any(isinstance(item, dict) and item.get('type') == 'image' for item in content)\nif has_image:\n    print(json.dumps({'hookSpecificOutput':{'hookEventName':'UserPromptSubmit','additionalContext':'\\u3053\\u306e\\u753b\\u50cf\\u3092\\u3082\\u3068\\u306b\\u3001CLAUDE.md\\u306e\\u30eb\\u30fc\\u30eb\\u306b\\u5f93\\u3063\\u3066Instagram\\u30fbNote\\u30fbThreads\\u306e\\u6295\\u7a3f\\u6587\\u3092\\u751f\\u6210\\u3057\\u3066\\u304f\\u3060\\u3055\\u3044\\u3002\\u30a2\\u30ab\\u30a6\\u30f3\\u30c8\\u306f@tomozo_gr\\u3067\\u3059\\u3002'}}))\nelse:\n    print(json.dumps({}))\n\"",
+            "timeout": 10,
+            "statusMessage": "SNS投稿を生成中..."
+          }
+        ]
+      }
+    ]
+  }
+}
